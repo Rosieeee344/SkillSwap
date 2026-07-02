@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HiOutlineX } from 'react-icons/hi';
+import { X } from 'lucide-react';
 
-export default function Modal({ isOpen, onClose, title, children, size = 'md' }) {
+export default function Dialog({ isOpen, onClose, title, children, size = 'md' }) {
   const overlayRef = useRef(null);
 
   useEffect(() => {
@@ -30,7 +30,6 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' })
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          {/* Overlay */}
           <motion.div
             ref={overlayRef}
             initial={{ opacity: 0 }}
@@ -41,8 +40,6 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' })
             className="absolute inset-0 bg-neutral-900/40 backdrop-blur-sm"
             aria-hidden="true"
           />
-
-          {/* Panel */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -53,21 +50,16 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' })
             aria-modal="true"
             aria-label={title}
           >
-            {/* Header */}
             <div className="flex items-center justify-between">
-              {title && (
-                <h2 className="text-lg font-semibold text-neutral-900">{title}</h2>
-              )}
+              {title && <h2 className="text-lg font-semibold text-neutral-900">{title}</h2>}
               <button
                 onClick={onClose}
                 className="rounded-lg p-1.5 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-600"
-                aria-label="Close modal"
+                aria-label="Close dialog"
               >
-                <HiOutlineX size={18} />
+                <X size={18} />
               </button>
             </div>
-
-            {/* Content */}
             <div className="mt-4">{children}</div>
           </motion.div>
         </div>

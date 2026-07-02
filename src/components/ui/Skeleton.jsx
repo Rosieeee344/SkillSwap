@@ -12,10 +12,7 @@ export default function Skeleton({ className = '', variant = 'text', count = 1 }
   return (
     <div className="space-y-3" role="status" aria-label="Loading">
       {Array.from({ length: count }).map((_, i) => (
-        <div
-          key={i}
-          className={`${baseClasses} ${variantClasses[variant]} ${className}`}
-        />
+        <div key={i} className={`${baseClasses} ${variantClasses[variant]} ${className}`} />
       ))}
       <span className="sr-only">Loading...</span>
     </div>

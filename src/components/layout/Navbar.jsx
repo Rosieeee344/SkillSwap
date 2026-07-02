@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
-import { APP_NAME, NAV_LINKS } from '../constants';
+import { Menu, X } from 'lucide-react';
+import { APP_NAME, NAV_LINKS } from '../../constants';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +13,6 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-neutral-200/60 bg-white/80 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-600 text-sm font-bold text-white">
             S
@@ -23,7 +22,6 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Nav */}
         <div className="hidden items-center gap-1 md:flex">
           {NAV_LINKS.map((link) => (
             <Link
@@ -40,28 +38,25 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Desktop CTA */}
         <div className="hidden md:flex">
           <Link
-            to="/explore"
+            to="/signup"
             className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all hover:bg-primary-700 hover:shadow-md active:scale-[0.98]"
           >
             Get Started
           </Link>
         </div>
 
-        {/* Mobile menu button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="rounded-lg p-2 text-neutral-600 transition-colors hover:bg-neutral-100 md:hidden"
           aria-label="Toggle navigation menu"
           aria-expanded={isOpen}
         >
-          {isOpen ? <HiOutlineX size={22} /> : <HiOutlineMenu size={22} />}
+          {isOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </nav>
 
-      {/* Mobile Nav */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -88,7 +83,7 @@ export default function Navbar() {
               ))}
               <div className="pt-2">
                 <Link
-                  to="/explore"
+                  to="/signup"
                   onClick={() => setIsOpen(false)}
                   className="block rounded-lg bg-primary-600 px-4 py-2.5 text-center text-sm font-medium text-white transition-all hover:bg-primary-700"
                 >

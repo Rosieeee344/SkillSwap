@@ -2,16 +2,16 @@ export const APP_NAME = 'SkillSwap';
 
 export const NAV_LINKS = [
   { label: 'Home', path: '/' },
-  { label: 'Explore', path: '/explore' },
-  { label: 'Messages', path: '/messages' },
-  { label: 'Profile', path: '/profile' },
+  { label: 'How It Works', path: '/how-it-works' },
+  { label: 'About', path: '/about' },
+  { label: 'FAQ', path: '/faq' },
 ];
 
 export const FOOTER_LINKS = {
   product: [
-    { label: 'Features', path: '/features' },
-    { label: 'Pricing', path: '/pricing' },
+    { label: 'How It Works', path: '/how-it-works' },
     { label: 'FAQ', path: '/faq' },
+    { label: 'Contact', path: '/contact' },
   ],
   company: [
     { label: 'About', path: '/about' },

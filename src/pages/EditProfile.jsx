@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-export default function Profile() {
+export default function EditProfile() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -9,7 +9,7 @@ export default function Profile() {
       className="flex min-h-[60vh] items-center justify-center px-4"
     >
       <div className="text-center">
-        <h1 className="text-2xl font-bold tracking-tight text-neutral-900">Profile</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-neutral-900">Edit Profile</h1>
         <p className="mt-2 text-sm text-neutral-500">Coming Soon</p>
       </div>
     </motion.div>

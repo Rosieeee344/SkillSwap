@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { APP_NAME, FOOTER_LINKS } from '../constants';
+import { APP_NAME, FOOTER_LINKS } from '../../constants';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -8,7 +8,6 @@ export default function Footer() {
     <footer className="border-t border-neutral-200/60 bg-white">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-          {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-600 text-sm font-bold text-white">
@@ -23,7 +22,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Product */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
               Product
@@ -42,7 +40,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Company */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
               Company
@@ -61,7 +58,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
               Legal
@@ -81,7 +77,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom */}
         <div className="mt-12 border-t border-neutral-100 pt-6">
           <p className="text-center text-xs text-neutral-400">
             &copy; {currentYear} {APP_NAME}. All rights reserved.

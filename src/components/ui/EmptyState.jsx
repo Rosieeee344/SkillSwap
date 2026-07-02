@@ -1,7 +1,7 @@
-import { HiOutlineInbox } from 'react-icons/hi';
+import { Inbox } from 'lucide-react';
 
 export default function EmptyState({
-  icon: Icon = HiOutlineInbox,
+  icon: Icon = Inbox,
   title = 'Nothing here yet',
   description = 'Content will appear here once available.',
   action,
