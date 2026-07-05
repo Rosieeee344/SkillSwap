@@ -10,120 +10,16 @@ import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
 import Avatar from '../components/ui/Avatar';
 import SearchBar from '../components/ui/SearchBar';
+import { events, eventFilters as filters } from '../data/events';
 
-const events = [
-  {
-    id: 1,
-    title: 'React Workshop: Advanced Patterns',
-    type: 'workshop',
-    icon: Code,
-    color: 'bg-blue-100 text-blue-600',
-    date: 'Jul 15, 2025',
-    time: '2:00 PM - 4:00 PM',
-    location: 'Online',
-    locationIcon: Video,
-    attendees: 34,
-    maxAttendees: 50,
-    host: 'Sarah Kim',
-    hostAvatar: 'SK',
-    description: 'Deep dive into React patterns including compound components, render props, and custom hooks.',
-    tags: ['React', 'Advanced', 'Frontend'],
-  },
-  {
-    id: 2,
-    title: 'UI/UX Design Hackathon',
-    type: 'hackathon',
-    icon: Palette,
-    color: 'bg-purple-100 text-purple-600',
-    date: 'Jul 18 - 19, 2025',
-    time: '10:00 AM onwards',
-    location: 'Design Lab, Bldg 3',
-    locationIcon: MapPin,
-    attendees: 28,
-    maxAttendees: 30,
-    host: 'James Chen',
-    hostAvatar: 'JC',
-    description: '48-hour design hackathon. Redesign a campus service from scratch. Prizes for top 3 teams.',
-    tags: ['Design', 'Hackathon', 'In-Person'],
-  },
-  {
-    id: 3,
-    title: 'Python for Data Science Study Group',
-    type: 'study-group',
-    icon: TrendingUp,
-    color: 'bg-emerald-100 text-emerald-600',
-    date: 'Every Tuesday',
-    time: '5:00 PM - 6:30 PM',
-    location: 'Online',
-    locationIcon: Video,
-    attendees: 56,
-    maxAttendees: 100,
-    host: 'Maria Lopez',
-    hostAvatar: 'ML',
-    description: 'Weekly study group covering pandas, numpy, and data visualization techniques.',
-    tags: ['Python', 'Data Science', 'Recurring'],
-  },
-  {
-    id: 4,
-    title: 'Coffee & Code: JavaScript Edition',
-    type: 'meetup',
-    icon: Coffee,
-    color: 'bg-amber-100 text-amber-600',
-    date: 'Jul 22, 2025',
-    time: '11:00 AM - 1:00 PM',
-    location: 'Campus Cafe',
-    locationIcon: MapPin,
-    attendees: 15,
-    maxAttendees: 20,
-    host: 'David Wilson',
-    hostAvatar: 'DW',
-    description: 'Casual coding meetup. Bring your laptop, grab a coffee, and code together on JavaScript challenges.',
-    tags: ['JavaScript', 'Networking', 'Beginner-Friendly'],
-  },
-  {
-    id: 5,
-    title: 'Cybersecurity Capture The Flag',
-    type: 'competition',
-    icon: Monitor,
-    color: 'bg-red-100 text-red-600',
-    date: 'Jul 25, 2025',
-    time: '1:00 PM - 5:00 PM',
-    location: 'Online',
-    locationIcon: Video,
-    attendees: 42,
-    maxAttendees: 200,
-    host: 'Ryan O\'Brien',
-    hostAvatar: 'RO',
-    description: 'Test your security skills in this CTF competition. Solve challenges across web, crypto, and forensics.',
-    tags: ['Cybersecurity', 'Competition', 'All Levels'],
-  },
-  {
-    id: 6,
-    title: 'Building Your First Full-Stack App',
-    type: 'workshop',
-    icon: Code,
-    color: 'bg-indigo-100 text-indigo-600',
-    date: 'Jul 28, 2025',
-    time: '3:00 PM - 5:30 PM',
-    location: 'Online',
-    locationIcon: Video,
-    attendees: 67,
-    maxAttendees: 100,
-    host: 'Alex Chen',
-    hostAvatar: 'AC',
-    description: 'Hands-on workshop: build a full-stack app with React, Node.js, and PostgreSQL from scratch.',
-    tags: ['Full-Stack', 'Workshop', 'Beginner'],
-  },
-];
-
-const filters = [
-  { key: 'all', label: 'All Events' },
-  { key: 'workshop', label: 'Workshops' },
-  { key: 'meetup', label: 'Meetups' },
-  { key: 'hackathon', label: 'Hackathons' },
-  { key: 'study-group', label: 'Study Groups' },
-  { key: 'competition', label: 'Competitions' },
-];
+const eventIconMap = { Code, Palette, TrendingUp, Coffee, Monitor };
+const eventTypeColors = {
+  workshop: 'bg-blue-100 text-blue-600',
+  hackathon: 'bg-purple-100 text-purple-600',
+  'study-group': 'bg-emerald-100 text-emerald-600',
+  meetup: 'bg-amber-100 text-amber-600',
+  competition: 'bg-red-100 text-red-600',
+};
 
 export default function Events() {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -190,14 +86,15 @@ export default function Events() {
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filteredEvents.map((event) => {
-            const Icon = event.icon;
-            const LocIcon = event.locationIcon;
+            const Icon = eventIconMap[event.icon] || Code;
+            const LocIcon = event.location === 'Online' ? Video : MapPin;
+            const color = eventTypeColors[event.type] || 'bg-blue-100 text-blue-600';
             const spotsLeft = event.maxAttendees - event.attendees;
             const isAlmostFull = spotsLeft <= 5;
 
             return (
               <Card key={event.id} hover className="flex flex-col p-5">
-                <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${event.color} mb-4`}>
+                <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${color} mb-4`}>
                   <Icon className="h-5 w-5" />
                 </div>
 

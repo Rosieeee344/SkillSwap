@@ -8,33 +8,16 @@ import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
 import EmptyState from '../components/ui/EmptyState';
+import { notificationGroups } from '../data/notifications';
 
-const notificationGroups = [
-  {
-    date: 'Today',
-    items: [
-      { id: 1, type: 'reminder', icon: Clock, iconBg: 'bg-primary-100', iconColor: 'text-primary-600', title: 'Session Reminder', text: 'Your React Fundamentals session with Sarah Kim starts in 30 minutes.', time: '9:30 AM', read: false },
-      { id: 2, type: 'match', icon: Handshake, iconBg: 'bg-emerald-100', iconColor: 'text-emerald-600', title: 'New Match', text: 'You have a new match request from Emily Watson for UI/UX Design.', time: '8:15 AM', read: false },
-      { id: 3, type: 'achievement', icon: Star, iconBg: 'bg-amber-100', iconColor: 'text-amber-600', title: 'Achievement Unlocked', text: 'Congratulations! You earned the "Quick Learner" badge.', time: '7:00 AM', read: true },
-    ],
-  },
-  {
-    date: 'Yesterday',
-    items: [
-      { id: 4, type: 'session', icon: Calendar, iconBg: 'bg-indigo-100', iconColor: 'text-indigo-600', title: 'Session Completed', text: 'Your TypeScript session with David Wilson has been marked as complete.', time: '4:30 PM', read: true },
-      { id: 5, type: 'message', icon: MessageSquare, iconBg: 'bg-purple-100', iconColor: 'text-purple-600', title: 'New Message', text: 'Emily Parker sent you a message: "Thanks for the great session!"', time: '2:00 PM', read: true },
-      { id: 6, type: 'match', icon: Handshake, iconBg: 'bg-emerald-100', iconColor: 'text-emerald-600', title: 'Match Accepted', text: 'James Chen accepted your match request for UI/UX Design Basics.', time: '11:00 AM', read: true },
-    ],
-  },
-  {
-    date: 'This Week',
-    items: [
-      { id: 7, type: 'achievement', icon: Award, iconBg: 'bg-amber-100', iconColor: 'text-amber-600', title: 'Level Up', text: 'You reached Level 12! Keep learning to unlock more rewards.', time: 'Jul 1', read: true },
-      { id: 8, type: 'system', icon: Bell, iconBg: 'bg-neutral-100', iconColor: 'text-neutral-600', title: 'System Update', text: 'SkillSwap has new features! Check out the updated learning paths.', time: 'Jun 30', read: true },
-      { id: 9, type: 'reminder', icon: Clock, iconBg: 'bg-primary-100', iconColor: 'text-primary-600', title: 'Weekly Roundup', text: 'You completed 5 sessions this week. Great job keeping the streak!', time: 'Jun 29', read: true },
-    ],
-  },
-];
+const notificationTypeConfig = {
+  reminder: { icon: Clock, iconBg: 'bg-primary-100', iconColor: 'text-primary-600' },
+  match: { icon: Handshake, iconBg: 'bg-emerald-100', iconColor: 'text-emerald-600' },
+  achievement: { icon: Star, iconBg: 'bg-amber-100', iconColor: 'text-amber-600' },
+  session: { icon: Calendar, iconBg: 'bg-indigo-100', iconColor: 'text-indigo-600' },
+  message: { icon: MessageSquare, iconBg: 'bg-purple-100', iconColor: 'text-purple-600' },
+  system: { icon: Bell, iconBg: 'bg-neutral-100', iconColor: 'text-neutral-600' },
+};
 
 export default function Notifications() {
   const [notifications, setNotifications] = useState(notificationGroups);
@@ -142,7 +125,7 @@ export default function Notifications() {
               </p>
               <div className="space-y-2">
                 {group.items.map((notif) => {
-                  const Icon = notif.icon;
+                  const { icon: Icon, iconBg, iconColor } = notificationTypeConfig[notif.type];
                   return (
                     <Card
                       key={notif.id}
@@ -151,8 +134,8 @@ export default function Notifications() {
                         !notif.read ? 'border-l-4 border-l-primary-500 bg-primary-50/30' : ''
                       }`}
                     >
-                      <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${notif.iconBg}`}>
-                        <Icon className={`h-4.5 w-4.5 ${notif.iconColor}`} />
+                      <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${iconBg}`}>
+                        <Icon className={`h-4.5 w-4.5 ${iconColor}`} />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between gap-2">

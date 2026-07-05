@@ -10,24 +10,9 @@ import Badge from '../components/ui/Badge';
 import Avatar from '../components/ui/Avatar';
 import Button from '../components/ui/Button';
 import StatsCard from '../components/admin/StatsCard';
+import { recentVerifications, recentReports, quickActions } from '../data/admin';
 
-const recentVerifications = [
-  { id: 1, name: 'Emily Watson', university: 'UCLA', avatar: 'EW', time: '2 hours ago' },
-  { id: 2, name: 'Marcus Rivera', university: 'NYU', avatar: 'MR', time: '5 hours ago' },
-  { id: 3, name: 'Yuki Tanaka', university: 'University of Tokyo', avatar: 'YT', time: '1 day ago' },
-];
-
-const recentReports = [
-  { id: 1, reporter: 'Sarah Kim', reported: 'John Doe', reason: 'Inappropriate Behavior', time: '1 hour ago', priority: 'high' },
-  { id: 2, reporter: 'David Wilson', reported: 'Jane Smith', reason: 'Harassment', time: '3 hours ago', priority: 'critical' },
-];
-
-const quickActions = [
-  { label: 'Verification Queue', icon: UserCheck, path: '/admin/verification', color: 'bg-emerald-100 text-emerald-600' },
-  { label: 'View Reports', icon: Flag, path: '/admin/reports', color: 'bg-amber-100 text-amber-600' },
-  { label: 'User Management', icon: Users, path: '/admin/users', color: 'bg-primary-100 text-primary-600' },
-  { label: 'Activity Log', icon: Activity, path: '/admin/activity', color: 'bg-purple-100 text-purple-600' },
-];
+const actionIconMap = { UserCheck, Flag, Users, Activity };
 
 export default function AdminDashboard() {
   return (
@@ -62,18 +47,21 @@ export default function AdminDashboard() {
             <h2 className="text-sm font-semibold text-neutral-900">Quick Actions</h2>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {quickActions.map((action) => (
-              <Link
-                key={action.path}
-                to={action.path}
-                className="group flex flex-col items-center gap-2 rounded-xl border border-neutral-200/60 bg-neutral-50 p-4 transition-colors hover:border-neutral-300 hover:bg-white hover:shadow-soft"
-              >
-                <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${action.color}`}>
-                  <action.icon className="h-5 w-5" />
-                </div>
-                <span className="text-xs font-medium text-neutral-700">{action.label}</span>
-              </Link>
-            ))}
+            {quickActions.map((action) => {
+              const Icon = actionIconMap[action.icon];
+              return (
+                <Link
+                  key={action.path}
+                  to={action.path}
+                  className="group flex flex-col items-center gap-2 rounded-xl border border-neutral-200/60 bg-neutral-50 p-4 transition-colors hover:border-neutral-300 hover:bg-white hover:shadow-soft"
+                >
+                  <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${action.color}`}>
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <span className="text-xs font-medium text-neutral-700">{action.label}</span>
+                </Link>
+              );
+            })}
           </div>
         </Card>
 
