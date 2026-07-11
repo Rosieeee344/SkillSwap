@@ -10,120 +10,16 @@ import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
 import Avatar from '../components/ui/Avatar';
 import SearchBar from '../components/ui/SearchBar';
+import { events, eventFilters as filters } from '../data/events';
 
-const events = [
-  {
-    id: 1,
-    title: 'React Workshop: Advanced Patterns',
-    type: 'workshop',
-    icon: Code,
-    color: 'bg-blue-100 text-blue-600',
-    date: 'Jul 15, 2025',
-    time: '2:00 PM - 4:00 PM',
-    location: 'Online',
-    locationIcon: Video,
-    attendees: 34,
-    maxAttendees: 50,
-    host: 'Sarah Kim',
-    hostAvatar: 'SK',
-    description: 'Deep dive into React patterns including compound components, render props, and custom hooks.',
-    tags: ['React', 'Advanced', 'Frontend'],
-  },
-  {
-    id: 2,
-    title: 'UI/UX Design Hackathon',
-    type: 'hackathon',
-    icon: Palette,
-    color: 'bg-purple-100 text-purple-600',
-    date: 'Jul 18 - 19, 2025',
-    time: '10:00 AM onwards',
-    location: 'Design Lab, Bldg 3',
-    locationIcon: MapPin,
-    attendees: 28,
-    maxAttendees: 30,
-    host: 'James Chen',
-    hostAvatar: 'JC',
-    description: '48-hour design hackathon. Redesign a campus service from scratch. Prizes for top 3 teams.',
-    tags: ['Design', 'Hackathon', 'In-Person'],
-  },
-  {
-    id: 3,
-    title: 'Python for Data Science Study Group',
-    type: 'study-group',
-    icon: TrendingUp,
-    color: 'bg-emerald-100 text-emerald-600',
-    date: 'Every Tuesday',
-    time: '5:00 PM - 6:30 PM',
-    location: 'Online',
-    locationIcon: Video,
-    attendees: 56,
-    maxAttendees: 100,
-    host: 'Maria Lopez',
-    hostAvatar: 'ML',
-    description: 'Weekly study group covering pandas, numpy, and data visualization techniques.',
-    tags: ['Python', 'Data Science', 'Recurring'],
-  },
-  {
-    id: 4,
-    title: 'Coffee & Code: JavaScript Edition',
-    type: 'meetup',
-    icon: Coffee,
-    color: 'bg-amber-100 text-amber-600',
-    date: 'Jul 22, 2025',
-    time: '11:00 AM - 1:00 PM',
-    location: 'Campus Cafe',
-    locationIcon: MapPin,
-    attendees: 15,
-    maxAttendees: 20,
-    host: 'David Wilson',
-    hostAvatar: 'DW',
-    description: 'Casual coding meetup. Bring your laptop, grab a coffee, and code together on JavaScript challenges.',
-    tags: ['JavaScript', 'Networking', 'Beginner-Friendly'],
-  },
-  {
-    id: 5,
-    title: 'Cybersecurity Capture The Flag',
-    type: 'competition',
-    icon: Monitor,
-    color: 'bg-red-100 text-red-600',
-    date: 'Jul 25, 2025',
-    time: '1:00 PM - 5:00 PM',
-    location: 'Online',
-    locationIcon: Video,
-    attendees: 42,
-    maxAttendees: 200,
-    host: 'Ryan O\'Brien',
-    hostAvatar: 'RO',
-    description: 'Test your security skills in this CTF competition. Solve challenges across web, crypto, and forensics.',
-    tags: ['Cybersecurity', 'Competition', 'All Levels'],
-  },
-  {
-    id: 6,
-    title: 'Building Your First Full-Stack App',
-    type: 'workshop',
-    icon: Code,
-    color: 'bg-indigo-100 text-indigo-600',
-    date: 'Jul 28, 2025',
-    time: '3:00 PM - 5:30 PM',
-    location: 'Online',
-    locationIcon: Video,
-    attendees: 67,
-    maxAttendees: 100,
-    host: 'Alex Chen',
-    hostAvatar: 'AC',
-    description: 'Hands-on workshop: build a full-stack app with React, Node.js, and PostgreSQL from scratch.',
-    tags: ['Full-Stack', 'Workshop', 'Beginner'],
-  },
-];
-
-const filters = [
-  { key: 'all', label: 'All Events' },
-  { key: 'workshop', label: 'Workshops' },
-  { key: 'meetup', label: 'Meetups' },
-  { key: 'hackathon', label: 'Hackathons' },
-  { key: 'study-group', label: 'Study Groups' },
-  { key: 'competition', label: 'Competitions' },
-];
+const eventIconMap = { Code, Palette, TrendingUp, Coffee, Monitor };
+const eventTypeColors = {
+  workshop: 'bg-blue-100 text-blue-600',
+  hackathon: 'bg-purple-100 text-purple-600',
+  'study-group': 'bg-emerald-100 text-emerald-600',
+  meetup: 'bg-amber-100 text-amber-600',
+  competition: 'bg-red-100 text-red-600',
+};
 
 export default function Events() {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -223,8 +119,9 @@ export default function Events() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredEvents.map((event, index) => {
-              const Icon = event.icon;
-              const LocIcon = event.locationIcon;
+              const Icon = eventIconMap[event.icon] || Code;
+              const LocIcon = event.location === 'Online' ? Video : MapPin;
+              const color = eventTypeColors[event.type] || 'bg-blue-100 text-blue-600';
               const spotsLeft = event.maxAttendees - event.attendees;
               const isAlmostFull = spotsLeft <= 5;
 
@@ -238,11 +135,11 @@ export default function Events() {
                 >
                   <Card className="p-0 overflow-hidden h-full flex flex-col group">
                     {/* Cover Image with Gradient */}
-                    <div className={`h-40 bg-gradient-to-br ${event.color.includes('blue') ? 'from-blue-400 to-blue-600' :
-                      event.color.includes('purple') ? 'from-purple-400 to-purple-600' :
-                      event.color.includes('emerald') ? 'from-emerald-400 to-emerald-600' :
-                      event.color.includes('amber') ? 'from-amber-400 to-amber-600' :
-                      event.color.includes('red') ? 'from-red-400 to-red-600' :
+                    <div className={`h-40 bg-gradient-to-br ${event.color?.includes('blue') ? 'from-blue-400 to-blue-600' :
+                      event.color?.includes('purple') ? 'from-purple-400 to-purple-600' :
+                      event.color?.includes('emerald') ? 'from-emerald-400 to-emerald-600' :
+                      event.color?.includes('amber') ? 'from-amber-400 to-amber-600' :
+                      event.color?.includes('red') ? 'from-red-400 to-red-600' :
                       'from-indigo-400 to-indigo-600'} relative overflow-hidden`}>
                       <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-300"></div>
                       <div className="absolute top-4 right-4">
@@ -295,7 +192,7 @@ export default function Events() {
 
                       {/* Tags */}
                       <div className="flex flex-wrap gap-2 mb-6">
-                        {event.tags.map((tag) => (
+                        {event.tags?.map((tag) => (
                           <Badge key={tag} color="neutral" variant="solid" className="text-xs">
                             {tag}
                           </Badge>

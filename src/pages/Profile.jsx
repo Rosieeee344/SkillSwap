@@ -8,23 +8,7 @@ import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Avatar from '../components/ui/Avatar';
 import Button from '../components/ui/Button';
-
-const skillsOffered = ['React', 'JavaScript', 'TypeScript', 'HTML/CSS', 'Git'];
-const skillsWanted = ['Python', 'UI/UX Design', 'Node.js', 'GraphQL'];
-
-const reviews = [
-  { id: 1, name: 'Sarah Kim', rating: 5, text: 'Alex is an amazing React tutor! Very patient and explains concepts clearly.', avatar: 'SK', date: '3 days ago' },
-  { id: 2, name: 'David Wilson', rating: 5, text: 'Great session on TypeScript. Helped me understand generics.', avatar: 'DW', date: '1 week ago' },
-  { id: 3, name: 'Maria Lopez', rating: 4, text: 'Good teaching style. Would recommend for JavaScript basics.', avatar: 'ML', date: '2 weeks ago' },
-];
-
-const gamificationBadges = [
-  { name: 'Quick Learner', icon: '⚡', earned: true },
-  { name: 'Top Rated', icon: '⭐', earned: true },
-  { name: 'Session Master', icon: '🏆', earned: true },
-  { name: 'Streak Champion', icon: '🔥', earned: false },
-  { name: 'Community Star', icon: '🌟', earned: false },
-];
+import { skillsOffered, skillsWanted, reviews, gamificationBadges } from '../data/profile';
 
 export default function Profile() {
   return (

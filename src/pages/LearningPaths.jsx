@@ -9,6 +9,8 @@ import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
 
+const iconMap = { Code, Palette, Database, ShieldCheck, TrendingUp, Briefcase, BarChart3 };
+
 const learningPaths = [
   {
     id: 1,
@@ -150,7 +152,6 @@ export default function LearningPaths() {
           </motion.div>
         </div>
       </div>
-
       {/* Main Content */}
       <div className="px-6 sm:px-8 lg:px-12 py-12 max-w-7xl mx-auto">
         {/* Featured Path Hero Card */}

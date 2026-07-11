@@ -18,9 +18,9 @@ export default function EmptyState({
       <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-600 to-accent-600 shadow-lg">
         <Icon className="h-8 w-8 text-white" aria-hidden="true" />
       </div>
-      <h3 className="mt-5 text-base font-semibold text-neutral-800">{title}</h3>
-      <p className="mt-2 max-w-xs text-sm text-neutral-500">{description}</p>
-      {action && <div className="mt-8">{action}</div>}
+      <h3 className="mt-5 text-base font-semibold text-neutral-900">{title}</h3>
+      <p className="mt-1.5 max-w-sm text-sm leading-relaxed text-neutral-500">{description}</p>
+      {action && <div className="mt-6">{action}</div>}
     </motion.div>
   );
 }

@@ -1,25 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-  Calendar, Clock, Star, Award, CheckCircle2, Video, MapPin, MessageSquare, ArrowRight
+  Clock, Star, Award, CheckCircle2, Video, MapPin, ArrowRight
 } from 'lucide-react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Avatar from '../components/ui/Avatar';
 import { useToast } from '../components/ui/Toast';
-
-const timeSlots = [
-  { time: '9:00 AM', available: true },
-  { time: '10:00 AM', available: true },
-  { time: '11:00 AM', available: false },
-  { time: '12:00 PM', available: true },
-  { time: '1:00 PM', available: true },
-  { time: '2:00 PM', available: false },
-  { time: '3:00 PM', available: true },
-  { time: '4:00 PM', available: true },
-  { time: '5:00 PM', available: true },
-  { time: '6:00 PM', available: true },
-];
+import { timeSlots } from '../data/sessions';
 
 const instructor = {
   name: 'Sarah Kim',

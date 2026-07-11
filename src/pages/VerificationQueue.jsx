@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, FileText, Calendar, Mail, Building2, CheckCircle2, X, ExternalLink } from 'lucide-react';
 import Card from '../components/ui/Card';
@@ -59,6 +60,16 @@ const verificationQueue = [
 ];
 
 export default function VerificationQueue() {
+  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState('all');
+
+  const filters = [
+    { key: 'all', label: 'All', count: 5 },
+    { key: 'pending', label: 'Pending', count: 5 },
+    { key: 'approved', label: 'Approved', count: 0 },
+    { key: 'rejected', label: 'Rejected', count: 0 },
+  ];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -241,6 +252,10 @@ export default function VerificationQueue() {
           </Card>
         )}
       </div>
+
+      <Card className="p-0">
+        <VerificationTable />
+      </Card>
     </motion.div>
   );
 }
