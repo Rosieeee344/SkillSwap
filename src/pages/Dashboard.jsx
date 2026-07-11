@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -19,7 +18,7 @@ const activityIcons = {
   learning: BookOpen,
 };
 
-function StatCard({ icon: Icon, label, value, trend, color = 'text-primary-600' }) {
+function StatCard({ icon: Icon, label, value, trend, color }) {
   return (
     <Card variant="stat">
       <div className="flex items-start justify-between">
@@ -30,27 +29,30 @@ function StatCard({ icon: Icon, label, value, trend, color = 'text-primary-600' 
           <Badge color="success" variant="solid">{trend}</Badge>
         )}
       </div>
-      <p className="mt-3 text-2xl font-bold tracking-tight text-neutral-900">{value}</p>
-      <p className="mt-1 text-sm text-neutral-500">{label}</p>
+      <div className="mt-4">
+        <p className="text-2xl font-bold text-neutral-900">{value}</p>
+        <p className="text-sm text-neutral-500">{label}</p>
+      </div>
     </Card>
   );
 }
 
 export default function Dashboard() {
   const { user } = useAuth();
-  const [greeting] = useState(() => {
+
+  const greeting = (() => {
     const hour = new Date().getHours();
     if (hour < 12) return 'Good morning';
     if (hour < 18) return 'Good afternoon';
     return 'Good evening';
-  });
+  })();
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="px-4 sm:px-6 lg:px-8 py-6 max-w-6xl mx-auto"
+      className="mx-auto w-full max-w-7xl px-5 py-6 sm:px-6 sm:py-8"
     >
       <div className="mb-6">
         <h1 className="text-2xl font-bold tracking-tight text-neutral-900">
@@ -153,18 +155,18 @@ export default function Dashboard() {
             <h2 className="text-sm font-semibold text-neutral-900">Recent Activity</h2>
           </div>
           <div className="space-y-3">
-              {recentActivity.map((item) => {
-                const ActivityIcon = activityIcons[item.type] || CheckCircle;
-                return (
-              <div key={item.id} className="flex items-start gap-3">
-                <div className={`mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-neutral-100`}>
-                  <ActivityIcon className={`h-3.5 w-3.5 ${item.color}`} />
+            {recentActivity.map((item) => {
+              const ActivityIcon = activityIcons[item.type] || CheckCircle;
+              return (
+                <div key={item.id} className="flex items-start gap-3">
+                  <div className={`mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-neutral-100`}>
+                    <ActivityIcon className={`h-3.5 w-3.5 ${item.color}`} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-neutral-700">{item.text}</p>
+                    <p className="text-xs text-neutral-400">{item.time}</p>
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm text-neutral-700">{item.text}</p>
-                  <p className="text-xs text-neutral-400">{item.time}</p>
-                </div>
-              </div>
               );
             })}
           </div>
@@ -227,14 +229,12 @@ export default function Dashboard() {
             {leaderboardPreview.map((entry) => (
               <div
                 key={entry.rank}
-                className={`flex items-center gap-3 rounded-xl p-2.5 ${
-                  entry.name === 'Alex Chen' ? 'bg-primary-50 border border-primary-100' : ''
-                }`}
+                className="flex items-center gap-3 rounded-xl p-3 transition-colors hover:bg-neutral-50"
               >
-                <div className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${
-                  entry.rank === 1 ? 'bg-amber-100 text-amber-700' :
-                  entry.rank === 2 ? 'bg-neutral-200 text-neutral-600' :
-                  'bg-orange-100 text-orange-700'
+                <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                  entry.rank === 1 ? 'bg-amber-500 text-white' :
+                  entry.rank === 2 ? 'bg-slate-400 text-white' :
+                  'bg-orange-400 text-white'
                 }`}>
                   {entry.rank}
                 </div>
@@ -242,7 +242,9 @@ export default function Dashboard() {
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-neutral-900">{entry.name}</p>
                 </div>
-                <span className="text-sm font-semibold text-neutral-700">{entry.points.toLocaleString()} XP</span>
+                <span className="text-xs font-semibold text-neutral-600">
+                  {entry.points.toLocaleString()} XP
+                </span>
               </div>
             ))}
           </div>
@@ -255,15 +257,25 @@ export default function Dashboard() {
           </div>
           <div className="space-y-3">
             {notificationsPreview.map((notif) => (
-              <div key={notif.id} className="flex items-start gap-3">
-                <div className={`mt-0.5 h-2 w-2 rounded-full ${
-                  notif.type === 'reminder' ? 'bg-primary-500' :
-                  notif.type === 'match' ? 'bg-emerald-500' :
-                  'bg-amber-500'
-                }`} />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm text-neutral-700">{notif.text}</p>
-                  <p className="text-xs text-neutral-400">{notif.time}</p>
+              <div
+                key={notif.id}
+                className="flex items-start gap-3 rounded-xl border border-neutral-100 bg-neutral-50/50 p-3"
+              >
+                <div className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${
+                  notif.type === 'reminder' ? 'bg-primary-100' :
+                  notif.type === 'match' ? 'bg-emerald-100' : 'bg-amber-100'
+                }`}>
+                  {notif.type === 'reminder' ? (
+                    <Bell className="h-3.5 w-3.5 text-primary-600" />
+                  ) : notif.type === 'match' ? (
+                    <Users className="h-3.5 w-3.5 text-emerald-600" />
+                  ) : (
+                    <Zap className="h-3.5 w-3.5 text-amber-600" />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs leading-relaxed text-neutral-700">{notif.text}</p>
+                  <p className="mt-0.5 text-xs text-neutral-400">{notif.time}</p>
                 </div>
               </div>
             ))}

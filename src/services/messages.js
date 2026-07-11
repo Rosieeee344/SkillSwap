@@ -7,12 +7,12 @@ export async function getConversations() {
   return conversations;
 }
 
-export async function getMessages(conversationId) {
+export async function getMessages(_conversationId) {
   await delay();
   return sampleMessages;
 }
 
-export async function sendMessage(conversationId, text) {
+export async function sendMessage(_conversationId, text) {
   await delay(200);
   return { id: Date.now(), sender: 'Alex Chen', text, time: 'Just now', isMe: true };
 }
